@@ -1,0 +1,5 @@
+.codebuddy/
+dist/
+log/
+.idea/
+.git/

@@ -1,0 +1,17 @@
+# 系统配置
+system:
+  name: "QuickStart-React-Updated"  # 应用名称
+  port: 3001                        # 服务端口号
+  host: "0.0.0.0"                   # 服务监听地址，0.0.0.0表示监听所有网络接口
+
+# 日志配置
+log:
+  level: "info"           # 日志级别：trace(最详细) < debug < info < warn < error < fatal < panic(最严重)
+  format: "json"          # 日志格式：json(JSON格式) 或 text(文本格式)
+  output_dir: "./log"     # 日志文件输出目录，相对于项目根目录
+  max_size: 100           # 单个日志文件最大大小，单位：MB，超过后会自动轮转
+  max_backups: 30         # 保留的旧日志文件数量，超过后会删除最旧的文件
+  max_age: 7              # 日志文件保留天数，超过后会自动删除
+  compress: true          # 是否压缩旧的日志文件，true表示压缩为.gz格式
+  console_output: true    # 是否同时输出到控制台，true表示既写文件又显示在终端
+
