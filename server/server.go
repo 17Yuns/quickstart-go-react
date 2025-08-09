@@ -8,6 +8,7 @@ import (
 
 	"quickstart-go-react/config"
 	"quickstart-go-react/logger"
+	"quickstart-go-react/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -36,54 +37,7 @@ func New() *Server {
 
 // SetupRoutes 设置路由
 func (s *Server) SetupRoutes() {
-	// 健康检查接口
-	s.engine.GET("/health", func(c *gin.Context) {
-		cfg := config.GetConfig()
-		c.JSON(http.StatusOK, gin.H{
-			"status":   "ok",
-			"app_name": cfg.System.Name,
-			"port":     cfg.System.Port,
-			"host":     cfg.System.Host,
-			"time":     time.Now().Format("2006-01-02 15:04:05"),
-		})
-		logger.Infof("健康检查请求 - 客户端: %s", c.ClientIP())
-	})
-
-	// 获取配置信息接口
-	s.engine.GET("/config", func(c *gin.Context) {
-		cfg := config.GetConfig()
-		c.JSON(http.StatusOK, gin.H{
-			"config": cfg,
-		})
-		logger.Infof("配置信息请求 - 客户端: %s", c.ClientIP())
-	})
-
-	// 示例API接口
-	s.engine.GET("/api/info", func(c *gin.Context) {
-		cfg := config.GetConfig()
-		c.JSON(http.StatusOK, gin.H{
-			"message":  "这是一个示例API",
-			"app_name": cfg.System.Name,
-			"version":  "1.0.0",
-		})
-		logger.Infof("API信息请求 - 客户端: %s", c.ClientIP())
-	})
-
-	// 测试日志接口
-	s.engine.GET("/test-log", func(c *gin.Context) {
-		logger.Traceln("这是一条 trace 日志")
-		logger.Debugln("这是一条 debug 日志")
-		logger.Infoln("这是一条 info 日志")
-		logger.Warnln("这是一条 warn 日志")
-		logger.Errorln("这是一条 error 日志")
-
-		c.JSON(http.StatusOK, gin.H{
-			"message": "日志测试完成，请查看日志文件",
-		})
-	})
-
-	// 静态文件服务（如果需要）
-	s.engine.Static("/static", "./static")
+	routes.SetupRoutes(s.engine)
 }
 
 // Start 启动服务器

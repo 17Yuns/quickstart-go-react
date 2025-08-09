@@ -67,7 +67,6 @@ func Init() error {
 	})
 
 	initialized = true
-	logrus.Infof("配置管理器初始化成功，当前配置: %+v", config)
 	return nil
 }
 
